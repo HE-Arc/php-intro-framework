@@ -242,7 +242,7 @@ en existe toute une foule:
  * [RedBean](http://www.redbeanphp.com/)
  * [Doctrine](http://www.doctrine-project.org/)
  * [Eloquent ORM](http://laravel.com/docs/4.2/eloquent)
- * etc.
+ * [etc.](https://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#PHP)
 
 ```php
 <?php // 03-redbean
@@ -352,7 +352,7 @@ nos pages, il est possible d'appeler directement la fonction via
 [`call_user_func_array`](http://php.net/call_user_func_array). Voir:
 [`04-routes/index.php`](04-routes/index.php).
 
-```
+```php
 <?php // 04-routes
 
 // ...
