@@ -1,0 +1,10 @@
+{% extends "base.html" -%}
+
+{% block corps -%}
+<h1>Accueil</h1>
+<ul>
+{% for personne in personnes -%}
+  <li><a href="?page=equipe&amp;id={{ personne.id }}">Yoan Blanc</a></li>
+{% endfor -%}
+</ul>
+{% endblock -%}
