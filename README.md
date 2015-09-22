@@ -1,24 +1,28 @@
 # Framework PHP
 
-[Pourquoi y en a-t-il tant?](http://bitworking.org/news/Why_so_many_Python_web_frameworks)
+Pourquoi y en a-t-il tant ? L'explication donnée par Joe Gregorio pour [le
+langage Python](http://bitworking.org/news/Why_so_many_Python_web_frameworks)
+est parce que c'est facile. Dans les faits, ça montre une maturité de la
+plateforme.
 
 ## A long time ago, in a galaxy far, far away
 
 Rasmus Lerdorf inventait PHP en bricolant un outil pour savoir qui venait
-consulter son CV. Zend (ZEev et aNDi) ont réécrit PHP 3 qui allait devenir le
-langage de prédilection pour créer sur le web.
+consulter son CV. Zend, c'est à dire ZEev et aNDi, ont réécrit PHP et qui
+allait devenir PHP 3 le précurseur du langage de prédilection pour créer sur le
+web.
 
-PHP a évolué depuis pour devenir ce qu'il est aujourd'hui.
+PHP a évolué depuis pour devenir ce qu'il est aujourd'hui. Sa popularité est
+liée au fait qu'il est simple à mettre en oeuvre, gratuit **et** libre et que tout
+un tas de modules sont fournis avec (imagerie, base de données, etc.)
 
-## Première question
+## Quiz
 
-Qu'est-ce qu'[Internet](https://www.youtube.com/watch?v=iDbyYGrswtg)?
+### Qu'est-ce qu'[Internet](https://www.youtube.com/watch?v=iDbyYGrswtg)?
 
 > _un réseau IP_
 
-## Deuxième question
-
-Qu'est-ce que le [World Wide
+### Qu'est-ce que le [World Wide
 Web](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html)?
 
 > _Essentiellement: HTTP, un protocole d'échange de texte, d'hypertext même_
