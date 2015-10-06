@@ -22,8 +22,7 @@ un tas de modules sont fournis avec (imagerie, base de données, etc.)
 
 > _un réseau IP_
 
-### Qu'est-ce que le [World Wide
-Web](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html)?
+### Qu'est-ce que le [World Wide Web](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html)?
 
 > _Essentiellement: HTTP, un protocole d'échange de texte, d'hypertext même_
 
