@@ -2,8 +2,8 @@
 
 Pourquoi y en a-t-il tant ? L'explication donnée par Joe Gregorio pour [le
 langage Python](http://bitworking.org/news/Why_so_many_Python_web_frameworks)
-est parce que c'est facile. Dans les faits, ça montre une maturité de la
-plateforme.
+est parce que c'est facile d'en créer un. Dans les faits, ça montre une
+maturité de la plateforme.
 
 ## A long time ago, in a galaxy far, far away
 
@@ -59,7 +59,7 @@ autrement, ici c'est dit dans l'entête `Content-Type: text/html; charset=utf-8`
 
 ## PHP parle HTTP.
 
-Réalisons cette page: `[00-base/index.php](00-base/index.php)`.
+Réalisons cette page: [`00-base/index.php`](00-base/index.php).
 
 ```php
 <?php // 00-base
@@ -302,8 +302,8 @@ Sera en réalité ceci pour PHP:
     /index.php/equipe/jean-bon
 
 Apache le fait via
-`[mod_rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)` et
-Nginx `[try_files](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)`.
+[`mod_rewrite`](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) et
+Nginx [`try_files`](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files).
 
 Avec Apache2, ça donne ceci:
 
