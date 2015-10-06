@@ -12,7 +12,7 @@ $id = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
 R::setup("sqlite:../users.db");
 
 // Configuration de Twig
-$loader = new Twig_Loader_FileSystem("templates");
+$loader = new Twig_Loader_Filesystem("templates");
 $twig = new Twig_Environment($loader);
 
 // Ajout des filtres md5 et strtolower qui sont les fonctions PHP du même nom.
