@@ -2,6 +2,7 @@
 
 require "../vendor/RedBean/rb.php";
 require_once "../vendor/Twig/lib/Twig/Autoloader.php";
+
 Twig_Autoloader::register();
 
 // Connexion à la page de donnée.

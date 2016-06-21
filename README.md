@@ -431,20 +431,22 @@ monde du web. Par exemple, Django, un framework Python, se décrit comme étant
 [Modèle - Template -
 Vue](https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names).
 
-## Composer et Packagist
+## Composer
 
 Maintenir notre répertoire de `vendor` ainsi que les `require` est peu pratique.
 Voici qu'entre en scène [Composer](https://getcomposer.org/), un gestionnaire
-de paquets pour PHP.
+de paquets pour PHP. [Packagist](https://packagist.org/) est le dépôt central
+où sont stockées les bibliothèques installables.
 
 Le fichier `composer.json` à la racine du projet décrit les dépendances de
-votre projet. Dans notre cas Twig et RedBean.
+votre projet à l'aide de la clé `require`. Dans notre cas, nous avons besoin de
+Twig et RedBean.
 
 ```json
 {
     "require": {
-        "twig/twig": "^1.24",
-        "gabordemooij/redbean": "^4.3.2"
+        "twig/twig": "~1.24",
+        "gabordemooij/redbean": "~4.3.2"
     }
 }
 ```
@@ -453,6 +455,16 @@ Puis `composer` va les installer dans un répertoire `vendor`.
 
 ```
 $ composer install
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+  - Installing gabordemooij/redbean (v4.3.2)
+    Loading from cache
+
+  - Installing twig/twig (v1.24.1)
+    Loading from cache
+
+Writing lock file
+Generating autoload files
 ```
 
 Enfin, nous pouvons réduire le nombre de `require` et `include` à un seul, en
@@ -462,13 +474,23 @@ définitions de Twig sont présentes et il nous suffit d'obtenir la classe `R`
 depuis RedBean.
 
 ```php
-<?php // 05-composer
+<?php
+// Ne dites plus
+require "../vendor/RedBean/rb.php";
+require_once "../vendor/Twig/lib/Twig/Autoloader.php";
 
+Twig_Autoloader::register();
+
+
+// Mais dites plutôt
 require "vendor/autoload.php";
 
 use \RedBeanPHP\Facade as R;
 
 ```
+
+Notez que nous n'utilisons plus le répertoire `vendor` global mais celui créé
+par `composer`.
 
 ## Framework PHP
 
