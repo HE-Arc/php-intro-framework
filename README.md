@@ -83,8 +83,8 @@ $db = new PDO("sqlite:../users.db");
 <?php
 // Contenu
 if ("equipe" === $page) {
-    $query = $db->query("SELECT * FROM `personnes` WHERE `id` = ?");
-    $query->execute([$id]);
+    $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id");
+    $query->execute(compact('id'));
 
     $personne = $query->fetch(PDO::FETCH_OBJ);
 ?>
@@ -132,8 +132,8 @@ include "templates/entete.html";
 
 // Contenu
 if ("equipe" === $page) {
-    $query = $db->query("SELECT * FROM `personnes` WHERE `id` = ?");
-    $query->execute([$id]);
+    $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id");
+    $query->execute(compact('id'));
 
     $personne = $query->fetch(PDO::FETCH_OBJ);
 
@@ -221,9 +221,9 @@ ORM](https://fr.wikipedia.org/wiki/Mapping_objet-relationnel) dans le jargon.
 ```php
 <?php
 // Ne dites plus
-$query = $db->query("SELECT * FROM `personnes` WHERE `id` = ?");
-$query->execute([$id]);
-$personne = $query->fetch();
+$query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id");
+$query->execute(compact('id'));
+$personne = $query->fetch(PDO::FETCH_OBJ);
 
 // Mais dites plutôt
 //  RedBean
@@ -330,7 +330,7 @@ list($uri) = explode("?", $_SERVER["REQUEST_URI"], 2);
 $uri = substr($uri, strlen($base));
 // on match.
 $matches = [];
-if (preg_match("#^/(?P<page>[^/]+)/(?P<slug>[^/]+)/?#", $uri, $matches)) {
+if (preg_match("#^/(?<page>[^/]+)/(?<slug>[^/]+)/?#", $uri, $matches)) {
     $page = $matches["page"];
     $slug = $matches["slug"];
 } else {
@@ -378,14 +378,16 @@ if (preg_match("#^/(?P<page>[^/]+)/(?P<slug>[^/]+)/?#", $uri, $matches)) {
 if (function_exists($page)) {
     echo call_user_func_array($page, $args);
 } else {
-    header("404 Not Found");
-    echo $twig->render("404.html");
+    echo not_found();
 }
 
 // les pages
 function equipe($slug) {
     global $twig, $base, $titre;
     $personne = R::findOne("personnes", "slug = ?", [$slug]);
+    if (!$personne) {
+        return not_found();
+    }
     return $twig->render("equipe.html", compact("base", "titre", "personne"));
 }
 
@@ -393,6 +395,13 @@ function accueil() {
     global $twig, $base, $titre;
     $personnes = R::find("personnes");
     return $twig->render("accueil.html", compact("base", "titre", "personnes"));
+}
+
+// page d'erreur
+function not_found() {
+    global $twig;
+    header("404 Not Found");
+    return $twig->render("404.html");
 }
 ```
 
@@ -422,11 +431,49 @@ monde du web. Par exemple, Django, un framework Python, se décrit comme étant
 [Modèle - Template -
 Vue](https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names).
 
+## Composer et Packagist
+
+Maintenir notre répertoire de `vendor` ainsi que les `require` est peu pratique.
+Voici qu'entre en scène [Composer](https://getcomposer.org/), un gestionnaire
+de paquets pour PHP.
+
+Le fichier `composer.json` à la racine du projet décrit les dépendances de
+votre projet. Dans notre cas Twig et RedBean.
+
+```json
+{
+    "require": {
+        "twig/twig": "^1.24",
+        "gabordemooij/redbean": "^4.3.2"
+    }
+}
+```
+
+Puis `composer` va les installer dans un répertoire `vendor`.
+
+```
+$ composer install
+```
+
+Enfin, nous pouvons réduire le nombre de `require` et `include` à un seul, en
+laissant soin à l'auto-loader de charger le bon fichier à la demande. Tout ceci
+est spécifié dans [PSR-4](http://www.php-fig.org/psr/psr-4/). Ainsi, les
+définitions de Twig sont présentes et il nous suffit d'obtenir la classe `R`
+depuis RedBean.
+
+```php
+<?php // 05-composer
+
+require "vendor/autoload.php";
+
+use \RedBeanPHP\Facade as R;
+
+```
 
 ## Framework PHP
 
 Les frameworks web en PHP (ou d'autres langages) reposent majoritairement sur
-ce paradigme-là.
+ces paradigmes et outils.
 
 Un framework web est une collection de bibliothèques choisie et assemblée avec
 un peu de glue. Il vous propose une structure de base pour construire selon une

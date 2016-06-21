@@ -1,11 +1,11 @@
-<?php // 04-routes
+<?php // 05-composer
 
-require "../vendor/RedBean/rb.php";
-require_once "../vendor/Twig/lib/Twig/Autoloader.php";
-Twig_Autoloader::register();
+require "vendor/autoload.php";
+
+use \RedBeanPHP\Facade as R;
 
 // Connexion à la page de donnée.
-R::setup("sqlite:../users.db");
+R::setup("sqlite:" . __DIR__ . "/../users.db");
 
 // Configuration de Twig
 $loader = new Twig_Loader_Filesystem("templates");
