@@ -221,21 +221,22 @@ nos fichiers de template, car ils sont faits de PHP eux aussi.
 
 ---
 
-### Template pour `collaborateur.html`
-
 ```html
-{% extends "base.html" -%}
+{# collaborateur.html #}
+{%- extends "base.html" -%}
 
 {% block corps -%}
 <p><a href="?">retour</a></p>
 <h1>Équipe</h1>
 <h2>
-  {{- personne.prenom }} {{ personne.nom -}}
+  {{- personne.prenom -}}
+  {{ personne.nom -}}
 </h2>
 <p>
-  <img src="http://www.gravatar.com/avatar/
-    {{- personne.email | strtolower | md5 }}"
-    alt="avatar">
+<img
+  src="http://www.gravatar.com/avatar/
+  {{- personne.email | strtolower | md5 }}"
+  alt="avatar">
 </p>
 {% endblock -%}
 ```
