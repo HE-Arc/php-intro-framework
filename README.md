@@ -36,7 +36,9 @@ un tas de modules sont fournis avec (imagerie, base de données, etc.)
 ## Qu'est-ce qu'[Internet](https://www.youtube.com/watch?v=iDbyYGrswtg)?
 
 <div class="notes">
+
 > _un réseau IP_
+
 </div>
 
 ---
@@ -44,7 +46,9 @@ un tas de modules sont fournis avec (imagerie, base de données, etc.)
 ## Qu'est-ce que le [World Wide Web](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html)?
 
 <div class="notes">
+
 > _Essentiellement: HTTP, un protocole d'échange de texte, d'hypertext même_
+
 </div>
 
 ---
@@ -100,6 +104,7 @@ Réalisons la page: [00-base/index.php](00-base/index.php).
 
 
 <div class="notes">
+
 ```php
 <?php // 00-base
 
@@ -153,6 +158,7 @@ if ("equipe" === $page) {
 </body>
 </html>
 ```
+
 </div>
 
 ---
@@ -177,6 +183,7 @@ Sortons les bouts de PHP de notre page à l'aide d'`include`.
 Voir: [01-includes/index.php](01-includes/index.php).
 
 <div class="notes">
+
 ```php
 <?php // 01-includes
 
@@ -198,6 +205,7 @@ if ("equipe" === $page) {
 
 include "templates/pieddepage.html";
 ```
+
 </div>
 
 ### Sécurité des templates
@@ -232,6 +240,7 @@ nos fichiers de template, car ils sont faits de PHP eux aussi.
 ```
 
 <div class="notes">
+
 La page est réalisée avec [Twig](http://twig.sensiolabs.org/).
 
 Le code est un poil plus propre du côté de nos templates qui ne peuvent plus
@@ -269,6 +278,7 @@ if ("equipe" === $page) {
     echo $twig->render("accueil.html", compact("titre", "personnes"));
 }
 ```
+
 </div>
 
 ---
@@ -277,6 +287,7 @@ if ("equipe" === $page) {
 Solution: _Object-Relational Mapping_
 
 <div class="notes">
+
 Effectuer des requêtes MySQL à la main ou devoir connaitre tous les champs crée
 beaucoup de redondance et de failles de sécurité potentielles.
 
@@ -285,6 +296,7 @@ Une solution est d'ajouter une couche d'abstraction qui va cacher la structure
 réelle de notre base de données et offrir une interface orientée objet. Un
 [_Object-Relational Mapping_ ou
 ORM](https://fr.wikipedia.org/wiki/Mapping_objet-relationnel) dans le jargon.
+
 </div>
 
 ---
@@ -307,7 +319,6 @@ $personne = R::load('personnes', $id);
 // ou Doctrine
 $personne = $om->find('Personne', $id);
 ```
-</div>
 
 ---
 
@@ -377,6 +388,7 @@ La solution à notre problème est de demander au serveur web de réécrire les
 URL pour nous.
 
 <div class="notes">
+
 Ainsi pour nos visiteurs:
 
     /equipe/jean-bon
@@ -384,6 +396,7 @@ Ainsi pour nos visiteurs:
 Sera en réalité ceci pour PHP:
 
     /index.php/equipe/jean-bon
+
 </div>
 
 ---
@@ -400,10 +413,13 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 ```
+
 <div class="notes">
+
 Apache le fait via
 `[mod_rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)` et
 Nginx `[try_files](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)`.
+
 </div>
 
 ---
@@ -425,6 +441,7 @@ echo call_user_func_array(
 ```
 
 <div class="notes">
+
 ```php
 <?php // 04-routes
 
@@ -477,6 +494,7 @@ function not_found() {
     return $twig->render("404.html");
 }
 ```
+
 </div>
 
 ---
@@ -607,7 +625,9 @@ retrouver ces éléments-là. Symfony, CakePHP, etc. auront les mêmes idées.
 Utilisation de [Aura\\Router](https://github.com/auraphp/Aura.Router) (voir
 [06-aura/index.php](06-aura/index.php)).
 
-<div class=notes> `Aura.Router` repose sur la spécification
+<div class=notes>
+
+`Aura.Router` repose sur la spécification
 [PSR-7](http://www.php-fig.org/psr/psr-7/) qui décrit l'interface objet d'un
 message HTTP, tant au niveau de la requête que de la réponse. Si ça ajoute, une
 bonne couche de complexité, l'énorme avantage offert par cette idée là est de
@@ -615,4 +635,5 @@ déléguer le rendu d'une page, ni `echo`, ni `header`, Donc il est envisageable
 de pouvoir test (au sens de test unitaire), notre _FrontController_.
 
 D'autre part, le `call_user_func_array` d'avant n'était pas très solide,
+
 </div>
