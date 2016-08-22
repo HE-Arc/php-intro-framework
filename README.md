@@ -1,6 +1,6 @@
 ---
 title: Introduction aux frameworks PHP
-author: Yoan Blanc <tt>yoan@dosimple.ch</tt>
+author: Yoan Blanc (<yoan@dosimple.ch>)
 date: 2016
 ---
 
@@ -287,7 +287,6 @@ réelle de notre base de données et offrir une interface orientée objet. Un
 ORM](https://fr.wikipedia.org/wiki/Mapping_objet-relationnel) dans le jargon.
 </div>
 
-
 ---
 
 ```php
@@ -302,12 +301,13 @@ $query->execute(compact('id'));
 $personne = $query->fetch(PDO::FETCH_OBJ);
 
 // Mais dites plutôt
+
 //  RedBean
 $personne = R::load('personnes', $id);
-//  Doctrine
+// ou Doctrine
 $personne = $om->find('Personne', $id);
-//  etc.
 ```
+</div>
 
 ---
 
@@ -321,30 +321,28 @@ $personne = $om->find('Personne', $id);
 <div class="notes">
 Une bibliothèque qui va créer ce lien entre les mondes objet et relationnel. Il
 en existe toute une foule.
+</div>
+---
 
 ```php
 <?php // 03-redbean
-
 require 'RedBean/rb.php';
-
-// Connexion à la page de donnée.
 R::setup("sqlite:../users.db");
-
 // ...
-
-// variable globale
-$titre = "He-Arc";
-
-// Contenu
 if ("equipe" === $page) {
     $personne = R::load("personnes", $id);
-    echo $twig->render("equipe.html", compact("titre", "personne"));
+    echo $twig->render(
+        "equipe.html",
+        compact("titre", "personne")
+    );
 } else {
     $personnes = R::find("personnes");
-    echo $twig->render("accueil.html", compact("titre", "personnes"));
+    echo $twig->render(
+        "accueil.html",
+        compact("titre", "personnes")
+    );
 }
 ```
-</div>
 
 ---
 
@@ -393,7 +391,8 @@ Sera en réalité ceci pour PHP:
 ### Apache's mod_rewrite
 
 ```apache
-// .htaccess
+# 04-routes/.htaccess
+
 RewriteEngine on
 RewriteBase /php-intro-framework/04-routes/
 
@@ -409,60 +408,16 @@ Nginx `[try_files](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_f
 
 ---
 
-### `$_SERVER['REQUEST_URI']`
-
-Voir [04-routes/index.php](04-routes/index.php).
-
-<div class="notes">
-```php
-<?php // 04-routes
-
-// ...
-
-// variables globales
-$titre = "He-Arc";
-$base = dirname($_SERVER["SCRIPT_NAME"]);
-
-// Lecture de l'URL
-list($uri) = explode("?", $_SERVER["REQUEST_URI"], 2);
-// on ôte le prefix même que RewriteBase.
-$uri = substr($uri, strlen($base));
-// on match.
-$matches = [];
-if (preg_match("#^/(?<page>[^/]+)/(?<slug>[^/]+)/?#", $uri, $matches)) {
-    $page = $matches["page"];
-    $slug = $matches["slug"];
-} else {
-    $page = "accueil";
-}
-
-if ("equipe" === $action) {
-    $personne = R::findOne("personnes", "slug = ?", [$slug]);
-    echo $twig->render("personne.html", compact("base", "titre", "personne"));
-} else {
-    $personnes = R::find("personnes");
-    echo $twig->render("accueil.html", compact("base", "titre", "personne"));
-}
-```
-
-Ce `if` n'est pas très élégant. En créant des fonctions ayant le même nom que
-nos pages, il est possible d'appeler directement la fonction via
-[`call_user_func_array`](http://php.net/call_user_func_array). Voir:
-[`04-routes/index.php`](04-routes/index.php).
-</div>
-
----
-
-### `call_user_func_array`
+### `REQUEST_URI` et `call_user_func_array`
 
 ```php
+// 04-routes/index.php
 $matches = [];
 preg_match(
     "#^/(?P<page>[^/]+)/(?P<slug>[^/]+)/?#",
     $_SERVER['REQUEST_URI'],
     $matches
 ) or die('Arrrrrgh');
-
 echo call_user_func_array(
     $matches['page'],
     [$matches['slug']]
@@ -639,4 +594,25 @@ outils propres.
 <div class="notes">
 Je vous invite à aller lire le code généré pour vous par Laravel. Vous allez
 retrouver ces éléments-là. Symfony, CakePHP, etc. auront les mêmes idées.
+</div>
+
+---
+
+# Fin
+
+---
+
+## Exercice bonus
+
+Utilisation de [Aura\\Router](https://github.com/auraphp/Aura.Router) (voir
+[06-aura/index.php](06-aura/index.php)).
+
+<div class=notes> `Aura.Router` repose sur la spécification
+[PSR-7](http://www.php-fig.org/psr/psr-7/) qui décrit l'interface objet d'un
+message HTTP, tant au niveau de la requête que de la réponse. Si ça ajoute, une
+bonne couche de complexité, l'énorme avantage offert par cette idée là est de
+déléguer le rendu d'une page, ni `echo`, ni `header`, Donc il est envisageable
+de pouvoir test (au sens de test unitaire), notre _FrontController_.
+
+D'autre part, le `call_user_func_array` d'avant n'était pas très solide,
 </div>
