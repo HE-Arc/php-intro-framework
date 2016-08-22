@@ -16,7 +16,7 @@ que c'est facile. Dans les faits, ça montre une maturité de la plateforme.
 
 ---
 
-![](http://io9.gizmodo.com/5103883/what-if-star-wars-had-happened-a-long-time-ago)
+![](https://i.kinja-img.com/gawker-media/image/upload/18m5cckzkalk6jpg.JPG)
 Rasmus Lerdorf bricola un outil pour savoir qui consultait son CV.
 
 
@@ -29,6 +29,7 @@ PHP a évolué depuis pour devenir ce qu'il est aujourd'hui. Sa popularité est
 liée au fait qu'il est simple à mettre en oeuvre, gratuit **et** libre et que tout
 un tas de modules sont fournis avec (imagerie, base de données, etc.)
 
+[source](http://io9.gizmodo.com/5103883/what-if-star-wars-had-happened-a-long-time-ago)
 </div>
 
 ---
