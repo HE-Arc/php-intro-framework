@@ -5,6 +5,7 @@ require "vendor/autoload.php";
 use FastRoute\Dispatcher;
 use function FastRoute\simpleDispatcher;
 use FastRoute\RouteCollector;
+
 use RedBeanPHP\Facade as R;
 
 
@@ -53,7 +54,11 @@ case Dispatcher::METHOD_NOT_ALLOWED:
 case Dispatcher::FOUND:
     $handler = $routeInfo[1];
     $args = $routeInfo[2];
-    echo call_user_func_array($handler, $args);
+    try {
+        echo call_user_func_array($handler, $args);
+    } catch (Exception $e){
+        echo server_error($e);
+    }
     break;
 }
 
@@ -73,7 +78,7 @@ function accueil() {
     return $twig->render("accueil.html", compact("base", "titre", "personnes"));
 }
 
-// pages d'erreur
+// les pages d'erreur
 function not_found() {
     global $twig;
     header("404 Not Found");
@@ -84,4 +89,10 @@ function not_allowed($allowedMethods) {
     global $twig;
     header("405 Method Not Allowed");
     return $twig->render("405.html", compact('allowedMethods'));
+}
+
+function server_error($exception) {
+    global $twig;
+    header("500 Internal Server Error");
+    return $twig->render("500.html", compact('exception'));
 }

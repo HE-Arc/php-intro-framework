@@ -1,8 +1,17 @@
-pages=slides.html
+SOURCES = slides.md
+SLIDES = slides.html
+PDFS = slides.pdf
 
-all: $(pages)
+.PHONY: all
+all: html pdf
 
-%.html: %.md header.html
+.PHONY: html
+html: $(SLIDES)
+
+.PHONY: pdf
+pdf: $(PDFS)
+
+$(SLIDES): %.html: %.md header.html
 	pandoc -s -i \
 		--mathjax \
 		-f markdown \
@@ -14,14 +23,21 @@ all: $(pages)
 		$^
 		
 
-%.pdf: %.md
+$(PDFS): %.pdf: %.md
 	pandoc --latex-engine=xelatex \
 		-f markdown \
 		-t latex \
+		--variable papersize=A4 \
+		--variable fontsize=12pt \
+		--variable mainfont="Linux Libertine O" \
+		--variable sansfont="Linux Biolinum O" \
+		--variable monofont="Inconsolata" \
+		--variable monofontoptions="Scale=0.9" \
+		--variable linkcolor="blue" \
+		--variable urlcolor="blue" \
 		-o $@ \
 		$^
 
-clean:
-	rm -f $(pages) *.pdf
-
 .PHONY: clean
+clean:
+	rm -f $(PDFS) $(SLIDES)

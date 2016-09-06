@@ -1,0 +1,11 @@
+{% extends "base.html" -%}
+
+{% block corps -%}
+<h1>500</h1>
+<p>
+  <strong>{{ exception.getMessage() }}</strong><br>
+  in {{ exception.getFile() }}
+  line {{ exception.getLine() }}
+</p>
+<pre>{{ exception.getTraceAsString() }}</pre>
+{% endblock -%}
