@@ -2,7 +2,6 @@
     "require": {
         "twig/twig": "1.24.*",
         "gabordemooij/redbean": "4.3.*",
-        "aura/router": "3.0.*",
-        "zendframework/zend-diactoros": "^1.3"
+        "nikic/fast-route": "^1.0"
     }
 }

@@ -1,0 +1,11 @@
+{% extends "base.html" -%}
+
+{% block corps -%}
+<h1>405</h1>
+<p>Use:</p>
+<ul>
+{% for allowedMethods as method -%}
+  <li>{{ method }}</li>
+{% endfor -%}
+</ul>
+{% endblock -%}

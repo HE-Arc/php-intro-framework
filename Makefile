@@ -1,4 +1,4 @@
-pages=README.html
+pages=slides.html
 
 all: $(pages)
 

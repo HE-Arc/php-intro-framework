@@ -1,8 +1,12 @@
-<?php // 05-composer
+<?php // 06-fastroute
 
 require "vendor/autoload.php";
 
+use FastRoute\Dispatcher;
+use function FastRoute\simpleDispatcher;
+use FastRoute\RouteCollector;
 use RedBeanPHP\Facade as R;
+
 
 // Connexion à la page de donnée.
 R::setup("sqlite:" . __DIR__ . "/../users.db");
@@ -15,29 +19,42 @@ $twig = new Twig_Environment($loader);
 $twig->addFilter(new Twig_SimpleFilter("strtolower", "strtolower"));
 $twig->addFilter(new Twig_SimpleFilter("md5", "md5"));
 
+// Définition des routes
+$dispatcher = simpleDispatcher(function(RouteCollector $r) {
+    $r->addRoute('GET', '/', 'accueil');
+    $r->addRoute('GET', '/equipe/{slug}', 'equipe');
+});
+
 // variables globales
 $titre = "He-Arc";
 $base = dirname($_SERVER["SCRIPT_NAME"]);
 
-// Lecture de l"URL
-list($uri) = explode("?", $_SERVER["REQUEST_URI"], 2);
-// on ôte le prefix même que RewriteBase.
-$uri = substr($uri, strlen($base));
-// on match.
-$matches = [];
-if (preg_match("#^/(?<page>[^/]+)/(?<slug>[^/]+)/?#", $uri, $matches)) {
-    $page = $matches["page"];
-    $args = [$matches["slug"]];
-} else {
-    $page = "accueil";
-    $args = [];
-}
+// verbe et requête HTTP
+$httpMethod = $_SERVER["REQUEST_METHOD"];
+$uri = $_SERVER["REQUEST_URI"];
 
-// Front controller
-if (function_exists($page)) {
-    echo call_user_func_array($page, $args);
-} else {
+// on ôte le prefix même que rewritebase.
+$uri = substr($uri, strlen($base));
+// on nettoie l'url.
+if (false !== ($pos = strpos($uri, '?'))) {
+    $uri = substr($uri, 0, $pos);
+}
+$uri = rawurldecode($uri);
+
+// exécution du routage.
+$routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+switch($routeInfo[0]) {
+case Dispatcher::NOT_FOUND:
     echo not_found();
+    break;
+case Dispatcher::METHOD_NOT_ALLOWED:
+    echo not_allowed($routeInfo[1]);
+    break;
+case Dispatcher::FOUND:
+    $handler = $routeInfo[1];
+    $args = $routeInfo[2];
+    echo call_user_func_array($handler, $args);
+    break;
 }
 
 // les pages
@@ -56,9 +73,15 @@ function accueil() {
     return $twig->render("accueil.html", compact("base", "titre", "personnes"));
 }
 
-// page d'erreur
+// pages d'erreur
 function not_found() {
     global $twig;
     header("404 Not Found");
     return $twig->render("404.html");
+}
+
+function not_allowed($allowedMethods) {
+    global $twig;
+    header("405 Method Not Allowed");
+    return $twig->render("405.html", compact('allowedMethods'));
 }

@@ -4,7 +4,7 @@
 <h1>Accueil</h1>
 <ul>
 {% for personne in personnes -%}
-  <li><a href="{{ generator.generate('equipe', {'slug': personne.slug}) }}">
+  <li><a href="equipe/{{ personne.slug }}">
     {{- personne.prenom }} {{ personne.nom -}}
   </a></li>
 {% endfor -%}

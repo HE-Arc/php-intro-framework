@@ -1,5 +1,5 @@
 RewriteEngine on
-RewriteBase /php-intro-framework/06-aura/
+RewriteBase /php-intro-framework/06-fastroute/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
