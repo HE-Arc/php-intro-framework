@@ -11,7 +11,7 @@ html: $(SLIDES)
 .PHONY: pdf
 pdf: $(PDFS)
 
-$(SLIDES): %.html: %.md header.html
+$(SLIDES): %.html: %.md theme.html
 	pandoc -s -i \
 		--mathjax \
 		-f markdown \

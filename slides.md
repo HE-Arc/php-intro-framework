@@ -56,7 +56,8 @@ oOops
 ![](http://f3.blick.ch/img/incoming/origs3322163/4502534789-w1280-h960/0O4A8746-large.jpg)
 
 <div class="notes">
-Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman.
+Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
+Berners-Lee et Vincent Cerf, résponsables du (World Wide) Web et de l'Internet.
 </div>
 
 ---
@@ -162,7 +163,7 @@ $db = new PDO("sqlite:../users.db");
 
 <?php
 // Contenu
-if ("equipe" === $_GET["page"]) {
+if ("equipe" === $page) {
     $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id;");
     $query->execute(compact('id'));
 
@@ -218,7 +219,7 @@ d'affichage n'était pas optimale car difficile à lire et maintenir.
 
 include "templates/entete.html";
 
-if ("equipe" === $page) {
+if ("equipe" === $_GET["page"]) {
     // ...
     include "templates/equipe.html";
 } else {
@@ -431,8 +432,8 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 <div class="notes">
 
 Apache le fait via
-`[mod_rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)` et
-Nginx `[try_files](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)`.
+[`mod_rewrite``](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) et
+Nginx [`try_files`](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files).
 
 </div>
 
@@ -459,58 +460,8 @@ echo call_user_func_array(
 
 <div class="notes">
 
-```php
-<?php // 04-routes
-
-// ...
-
-// variables globales
-$titre = "He-Arc";
-$base = dirname($_SERVER["SCRIPT_NAME"]);
-
-// Lecture de l'URL
-list($uri) = explode("?", $_SERVER["REQUEST_URI"], 2);
-// on ôte le prefix qui est le même que RewriteBase.
-$uri = substr($uri, strlen($base));
-// on match.
-$matches = [];
-if (preg_match("#^/(?P<page>[^/]+)/(?P<slug>[^/]+)/?#", $uri, $matches)) {
-    $page = $matches["page"];
-    $args = [$matches["slug"]];
-} else {
-    $page = "accueil";
-    $args = [];
-}
-
-// Front controller
-if (function_exists($page)) {
-    echo call_user_func_array($page, $args);
-} else {
-    echo not_found();
-}
-
-// les pages
-function equipe($slug) {
-    global $twig, $base, $titre;
-    $personne = R::findOne("personnes", "slug = ?", [$slug]);
-    if (!$personne) {
-        return not_found();
-    }
-    return $twig->render("equipe.html", compact("base", "titre", "personne"));
-}
-
-function accueil() {
-    global $twig, $base, $titre;
-    $personnes = R::find("personnes");
-    return $twig->render("accueil.html", compact("base", "titre", "personnes"));
-}
-
-function not_found() {
-    global $twig;
-    header("404 Not Found");
-    return $twig->render("404.html");
-}
-```
+Le code complet va nettoyer l'URI et définir les fonction correspondant aux
+pages possibles.
 
 </div>
 
@@ -646,6 +597,7 @@ D'autre part, le `call_user_func_array` d'avant n'était pas très solide,
 ---
 
 ```php
+
 <?php // 06-fastroute/index.php
 
 // ...
@@ -724,5 +676,15 @@ retrouver ces éléments-là. Symfony, CakePHP, etc. auront les mêmes idées.
 
 ---
 
-# Fin
+### Exercice
+
+* Refaites les différentes étapes à partir de `00-base`.
+* Tel quel ou en utilisant d'autres bibliothèques :
+[Smarty](https://github.com/smarty-php/smarty),
+[Doctrine](http://docs.doctrine-project.org/en/latest/tutorials/getting-started.html),
+[Aura.Router](https://github.com/auraphp/Aura.Router)
+
+---
+
+## Fin
 Questions?
