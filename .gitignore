@@ -1,2 +1,4 @@
+.*.sw[op]
+*~
 *.pdf
 slides.html

@@ -1,0 +1,12 @@
+# vim: ts=2 sw=2 tw=78 et:
+
+version: '2'
+
+services:
+  web:
+    image: greut/php-intro-framework
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - '.:/var/www/html/php-intro-framework'
