@@ -16,7 +16,7 @@ $(SLIDES): %.html: %.md header.html
 		--mathjax \
 		-f markdown \
 		-t dzslides \
-		-H header.html \
+		-H theme.html \
 		--self-contained \
 		--variable title-prefix=HE-Arc \
 		-o $@ \

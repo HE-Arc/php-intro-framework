@@ -162,7 +162,7 @@ $db = new PDO("sqlite:../users.db");
 
 <?php
 // Contenu
-if ("equipe" === $page) {
+if ("equipe" === $_GET["page"]) {
     $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id;");
     $query->execute(compact('id'));
 
