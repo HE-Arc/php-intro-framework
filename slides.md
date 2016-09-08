@@ -665,7 +665,7 @@ switch($routeInfo[0]) {
 * Modèle MVC
 * Templates utilisant _blade_.
 * ORM nommé _Eloquent_.
-* _Front-Controller_ (`Illuimate\Routing`)
+* _Front-Controller_ (`Illuminate\Routing`)
 * Bibliothèques ... (`Illuminate\*`)
 * [Composer](http://getcomposer.org/)
 
