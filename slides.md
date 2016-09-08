@@ -21,11 +21,29 @@ Dans les faits, ça montre également une maturité de la plateforme.
 
 ---
 
-![](https://i.kinja-img.com/gawker-media/image/upload/18m5cckzkalk6jpg.JPG)
-Rasmus Lerdorf bricola un outil pour savoir qui consultait son CV.
+> _There are people who actually like programming. I don't understand why they
+like programming._
+>
+> Rasmus Lerdorf [#](https://en.wikiquote.org/wiki/Rasmus_Lerdorf)
 
+---
+
+ * PHP-FI _Forms Interpreter_
+ * PHP 3 réécrit en C++
+ * PHP 4 _Zend Engine_, fausse POO
+ * PHP 5 vraie POO
+ * PHP 5.1 PDO
+ * PHP 5.2 JSON
+ * PHP 5.3 `goto` et `namespace`
+ * PHP 5.4 `[]` et `trait`
+ * PHP 5.5 `yield`
+ * PHP 6 Unicode (aha)
+ * PHP 7 que du rêve!
 
 <div class="notes">
+
+Rasmus Lerdorf bricola un outil pour savoir qui consultait son CV.
+
 Zend, c'est à dire _ZEev_ et _aNDi_, ont réécrit PHP et qui
 allait devenir PHP 3 le précurseur du langage de prédilection pour créer sur le
 web.
@@ -34,7 +52,19 @@ PHP a évolué depuis pour devenir ce qu'il est aujourd'hui. Sa popularité est
 liée au fait qu'il est simple à mettre en oeuvre, gratuit **et** libre et que tout
 un tas de modules sont fournis avec (imagerie, base de données, etc.)
 
-[source](http://io9.gizmodo.com/5103883/what-if-star-wars-had-happened-a-long-time-ago)
+Et plus encore sur la page [History of
+PHP](http://php.net/manual/en/history.php.php) et [Wikipedia:
+PHP](https://en.wikipedia.org/wiki/PHP).
+</div>
+
+---
+
+![PHP Framework Interop Group](images/phpfig.png)
+
+<div class="notes">
+L'évolution de PHP a fait que les usagers du langage, créateur de _framework_,
+d'outils (comme _Composer_), ont senti le besoin d'émettre des recommendations
+afin d'aller vers un plus interopérable.
 </div>
 
 ---
@@ -48,16 +78,20 @@ Qui est qui?
 ![](http://www.thelandofshadow.com/wp-content/uploads/2014/08/GandalfStaff5.jpg)
 
 <div class="notes">
-oOops
+oOops.
+
+[source](http://hero.wikia.com/wiki/Gandalf)
 </div>
 
 ---
 
-![](http://f3.blick.ch/img/incoming/origs3322163/4502534789-w1280-h960/0O4A8746-large.jpg)
+![](https://www.w3.org/20/img/event/0O4A8746_large.jpg)
 
 <div class="notes">
 Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
 Berners-Lee et Vincent Cerf, résponsables du (World Wide) Web et de l'Internet.
+
+[source](https://www.w3.org/20/Overview.html)
 </div>
 
 ---
@@ -121,7 +155,9 @@ autrement, ici c'est dit dans l'entête `Content-Type: text/html; charset=utf-8`
 $ sudo systemctl start httpd
 $ cd /var/www/html
 $ git clone \
-> https://github.com/HE-Arc/php-intro-framework
+> https://github.com/\
+> HE-Arc/php-intro-framework
+
 $ cd php-intro-framework
 $ open http://localhost/php-intro-framework
 ```
@@ -241,8 +277,8 @@ Quel est le problème avec cette solution?
 
 ### Sécurité des templates
 
-* Intégration faite par un graphiste, société externe
 * _Principle of Least Privilege_
+* Intégration faite par un graphiste, société externe
 
 <div class="notes">
 Dans ce le cas présent rien ne nous empêche de mettre de la logique métier dans
@@ -352,11 +388,11 @@ $personne = $om->find('Personne', $id);
 
 ---
 
-### ORM / ODM
+### Object-Relational Mapping
 
  * [RedBean](http://www.redbeanphp.com/)
  * [Doctrine](http://www.doctrine-project.org/) (ORM, ODM)
- * [Eloquent ORM](http://laravel.com/docs/4.2/eloquent)
+ * [Eloquent ORM](http://laravel.com/docs/master/eloquent)
  * [etc.](https://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#PHP)
 
 <div class="notes">
@@ -502,7 +538,7 @@ ce paradigme-là.
 
 ---
 
-## Composer & Packagist
+## [Composer](https://getcomposer.org/)
 
 Gestionnaire de paquets pour PHP.
 
@@ -529,15 +565,15 @@ paquets.
 
 ---
 
-### Installation
-
 ```console
-$ composer install
 
+
+$ composer install
 ```
 
-```php
+puis
 
+```php
 <?php // 05-composer/index.php
 
 require 'vendor/autoload.php';
@@ -555,29 +591,15 @@ les définitions de Twig sont présentes et il nous suffit d'obtenir la classe
 
 ---
 
-## Framework PHP
-
-Une collection de bibliothèques avec un peu de glue.
-
-<div class="notes">
-Un framework web vous propose une structure de base pour construire selon une
-méthode jugée bonne par ses concepteurs. Il est possible de remplacer un
-composant par un autre, par le sien. Et même de créer sa glue ou même ses
-outils propres.
-</div>
-
----
-
 ## Front-Controller
 
 Utilisation de [FastRoute](https://github.com/nikic/FastRoute)<br>
 (voir [07-fastroute/index.php](07-fastroute/index.php)).
 
+<div class="notes">
 ```console
 $ composer require nikic/fast-route
 ```
-
-<div class=notes>
 
 `FastRoute` repose sur un système proche de celui que nous avons utilisé
 jusqu'ici. D'autres sytèmes, tels que `Aura.Router` pour ne citer que lui,
@@ -599,9 +621,7 @@ D'autre part, le `call_user_func_array` d'avant n'était pas très solide,
 ```php
 
 <?php // 06-fastroute/index.php
-
 // ...
-
 use function FastRoute\simpleDispatcher;
 use FastRouter\Dispatcher;
 
@@ -657,6 +677,20 @@ switch($routeInfo[0]) {
         break;
 }
 ```
+
+---
+
+## Framework PHP
+
+Une collection de bibliothèques avec un peu de glue.
+
+<div class="notes">
+Un framework web vous propose une structure de base pour construire selon une
+méthode jugée bonne par ses concepteurs. Il est possible de remplacer un
+composant par un autre, par le sien. Et même de créer sa glue ou même ses
+outils propres.
+</div>
+
 
 ---
 
