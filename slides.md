@@ -63,7 +63,7 @@ PHP](https://en.wikipedia.org/wiki/PHP).
 
 <div class="notes">
 L'évolution de PHP a fait que les usagers du langage, créateur de _framework_,
-d'outils (comme _Composer_), ont senti le besoin d'émettre des recommendations
+d'outils (comme [_Composer_][4]), ont senti le besoin d'émettre des recommendations
 afin d'aller vers un plus interopérable.
 </div>
 
@@ -80,7 +80,7 @@ Qui est qui?
 <div class="notes">
 oOops.
 
-[source](http://hero.wikia.com/wiki/Gandalf)
+[source][1]
 </div>
 
 ---
@@ -91,7 +91,7 @@ oOops.
 Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
 Berners-Lee et Vincent Cerf, résponsables du (World Wide) Web et de l'Internet.
 
-[source](https://www.w3.org/20/Overview.html)
+[source][2]
 </div>
 
 ---
@@ -390,7 +390,7 @@ $personne = $om->find('Personne', $id);
 
 ### Object-Relational Mapping
 
- * [RedBean](http://www.redbeanphp.com/)
+ * [RedBean][3]
  * [Doctrine](http://www.doctrine-project.org/) (ORM, ODM)
  * [Eloquent ORM](http://laravel.com/docs/master/eloquent)
  * [etc.](https://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#PHP)
@@ -526,11 +526,10 @@ tel que `global`.
    utilisateur (URI, formulaire, etc.)
 
 <div class="notes">
-[MVC](https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur) vient des
-applications bureau et ne représente pas toujours le fonctionnement dans le
-monde du web. Par exemple, Django, un framework Python, se décrit comme étant
-[Modèle - Template -
-Vue](https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names).
+
+[MVC][5] vient des applications bureau et ne représente pas
+toujours le fonctionnement dans le monde du web. Par exemple, Django, un
+framework Python, se décrit comme étant [Modèle - Template - Vue][6].
 
 Les frameworks web en PHP (ou d'autres langages) reposent majoritairement sur
 ce paradigme-là.
@@ -538,13 +537,13 @@ ce paradigme-là.
 
 ---
 
-## [Composer](https://getcomposer.org/)
+## Composer
 
-Gestionnaire de paquets pour PHP.
+Gestionnaire de paquets pour PHP. [getcomposer.org][4]
 
 <div class="notes">
 Maintenir notre répertoire de `vendor` ainsi que les `require` est peu pratique.
-Voici qu'entre en scène [Composer](https://getcompose.org/), le gestionnaire de
+Voici qu'entre en scène [Composer][4], le gestionnaire de
 paquet pour PHP. [Packagist](https://packagist.org/) est le dépôt en ligne de
 paquets.
 </div>
@@ -586,7 +585,7 @@ Enfin, nous pouvons réduire le nombre de `require` et `include` à un seul,
 en laissant soin à l'_auto-loader_ de charger le bon fichier à la demande.
 Tout ceci est spécifié dans [PSR-4](http://www.php-fig.org/psr/psr-4/). Ainsi,
 les définitions de Twig sont présentes et il nous suffit d'obtenir la classe
-`R` depuis RedBean.
+`R` depuis [RedBean][3].
 </div>
 
 ---
@@ -701,7 +700,7 @@ outils propres.
 * ORM nommé _Eloquent_.
 * _Front-Controller_ (`Illuminate\Routing`)
 * Bibliothèques ... (`Illuminate\*`)
-* [Composer](http://getcomposer.org/)
+* [Composer][4]
 
 <div class="notes">
 Je vous invite à aller lire le code généré pour vous par Laravel. Vous allez
@@ -722,3 +721,10 @@ retrouver ces éléments-là. Symfony, CakePHP, etc. auront les mêmes idées.
 
 ## Fin
 Questions?
+
+[1]: http://hero.wikia.com/wiki/Gandalf
+[2]: https://www.w3.org/20/Overview.html
+[3]: http://www.redbeanphp.com/
+[4]: http://getcomposer.org/
+[5]: https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
+[6]: https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names)
