@@ -89,7 +89,7 @@ oOops.
 
 <div class="notes">
 Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
-Berners-Lee et Vincent Cerf, résponsables du (World Wide) Web et de l'Internet.
+Berners-Lee et Vinton Cerf, résponsables du (World Wide) Web et de l'Internet.
 
 [source][2]
 </div>
