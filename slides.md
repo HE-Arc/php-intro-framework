@@ -37,7 +37,7 @@ like programming._
  * PHP 5.3 `goto` et `namespace`
  * PHP 5.4 `[]` et `trait`
  * PHP 5.5 `yield`
- * PHP 6 Unicode (aha)
+ * PHP 6 Unicode 💩, 🎃, 🐧
  * PHP 7 que du rêve!
 
 <div class="notes">

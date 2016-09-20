@@ -27,7 +27,8 @@ $(PDFS): %.pdf: %.md
 	pandoc --latex-engine=xelatex \
 		-f markdown \
 		-t latex \
-		--variable papersize=A4 \
+		-H theme.tex \
+		--variable papersize=a4 \
 		--variable fontsize=12pt \
 		--variable mainfont="Linux Libertine O" \
 		--variable sansfont="Linux Biolinum O" \
