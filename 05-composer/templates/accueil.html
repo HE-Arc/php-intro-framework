@@ -6,7 +6,7 @@
 {% for personne in personnes -%}
   <li><a href="equipe/{{ personne.slug }}">
     {{- personne.prenom }} {{ personne.nom -}}
-  </a></li>
+  </a>
 {% endfor -%}
 </ul>
 {% endblock -%}

@@ -1,9 +1,7 @@
-<p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a></p>
+<p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a>
 <h1>Équipe</h1>
 <h2>
     <?php echo $personne->prenom ?>
     <?php echo $personne->nom ?>
 </h2>
-<p>
-    <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">
-</p>
+<p><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">

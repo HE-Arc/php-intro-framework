@@ -16,41 +16,43 @@ L'explication donnée par Joe Gregorio pour [le langage
 Python](http://bitworking.org/news/Why_so_many_Python_web_frameworks) est : «
 parce que c'est facile. »
 
-Dans les faits, ça montre également une maturité de la plateforme.
+Dans les faits, cela montre également une maturité de la plateforme.
 </div>
 
 ---
 
-> _There are people who actually like programming. I don't understand why they
-like programming._
+> _There are people who actually like programming. <br>
+> I don't understand why they like programming._
 >
-> Rasmus Lerdorf [#](https://en.wikiquote.org/wiki/Rasmus_Lerdorf)
+> Rasmus Lerdorf [💬](https://en.wikiquote.org/wiki/Rasmus_Lerdorf)
 
 ---
 
  * PHP-FI _Forms Interpreter_
- * PHP 3 réécrit en C++
+ * PHP 3, réécrit en C++
  * PHP 4 _Zend Engine_, fausse POO
- * PHP 5 vraie POO
- * PHP 5.1 PDO
- * PHP 5.2 JSON
- * PHP 5.3 `goto` et `namespace`
- * PHP 5.4 `[]` et `trait`
- * PHP 5.5 `yield`
- * PHP 6 Unicode 💩, 🎃, 🐧
- * PHP 7 que du rêve!
+ * PHP 5, vraie POO
+ * PHP 5.1, PDO
+ * PHP 5.2, JSON
+ * PHP 5.3, `goto` et `namespace`
+ * PHP 5.4, `[]` et `trait`
+ * PHP 5.5, `yield`
+ * ~~PHP 6, Unicode~~ 💩, 🎃, 🐧
+ * PHP 7, que du rêve!
 
 <div class="notes">
 
-Rasmus Lerdorf bricola un outil pour savoir qui consultait son CV.
+Il y a plus de vingt ans, Rasmus Lerdorf bricola un outil pour savoir qui
+consultait son CV.
 
 Zend, c'est à dire _ZEev_ et _aNDi_, ont réécrit PHP et qui
 allait devenir PHP 3 le précurseur du langage de prédilection pour créer sur le
 web.
 
 PHP a évolué depuis pour devenir ce qu'il est aujourd'hui. Sa popularité est
-liée au fait qu'il est simple à mettre en oeuvre, gratuit **et** libre et que tout
-un tas de modules sont fournis avec (imagerie, base de données, etc.)
+liée au fait qu'il est simple à mettre en œuvre, gratuit **et** libre. Tout
+un tas de modules est fourni avec pour faire de l'imagerie, des bases de
+données, du XML, etc.
 
 Et plus encore sur la page [History of
 PHP](http://php.net/manual/en/history.php.php) et [Wikipedia:
@@ -62,9 +64,11 @@ PHP](https://en.wikipedia.org/wiki/PHP).
 ![PHP Framework Interop Group](images/phpfig.png)
 
 <div class="notes">
-L'évolution de PHP a fait que les usagers du langage, créateur de _framework_,
+L'évolution de PHP a fait que les usagers du langage, créateur de _frameworks_,
 d'outils (comme [_Composer_][4]), ont senti le besoin d'émettre des recommendations
 afin d'aller vers un plus interopérable.
+
+Durant ce cours, nous allons vous embêter avec PSR-1, PSR-2 et PSR-4.
 </div>
 
 ---
@@ -78,20 +82,20 @@ Qui est qui?
 ![](http://www.thelandofshadow.com/wp-content/uploads/2014/08/GandalfStaff5.jpg)
 
 <div class="notes">
-oOops.
+oOops, ceci n'a rien à voir avec le cours.
 
-[source][1]
+([Source de la figure][1])
 </div>
 
 ---
 
-![](https://www.w3.org/20/img/event/0O4A8746_large.jpg)
+![](images/0O4A8746-large.jpg)
 
 <div class="notes">
-Non, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
+Donc, ce ne sont pas Gandalf (sans sa barbe) et Saruman mais bien Sir Tim
 Berners-Lee et Vinton Cerf, résponsables du (World Wide) Web et de l'Internet.
 
-[source][2]
+([Source de la figure][2])
 </div>
 
 ---
@@ -104,52 +108,13 @@ Berners-Lee et Vinton Cerf, résponsables du (World Wide) Web et de l'Internet.
 
 ### Qu'est-ce que le [World Wide Web](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html)?
 
-* URI/URL, des identifiants uniques
-* HTML, un langage de publication
-* HTTP, un protocole d'échange de texte (ou _hypertext_)
+* **URI/URL**, des identifiants uniques
+* **HTML**, un langage de publication
+* **HTTP**, un protocole d'échange de texte (ou _hypertext_)
 
 ---
 
-```console
-
-$ # HTTP in a nutshell
-
-$ curl -v "http://he-arc.ch/?id=25"
-> GET /?id=25 HTTP/1.1
-> Host: he-arc.ch
->
-< HTTP/1.1 200 OK
-< Content-Type: text/html; charset=utf-8
-<
-```
-
-```html
-<!DOCTYPE html>
-<html lang=tlh>
-    <meta charset=utf-8>
-    <title>He-Arc</title>
-
-<!-- etc -->
-```
-
-<div class="notes">
-HTTP est un protocole texte plutôt simple, jugez plutôt:
-
-Ce que nous voyons est une connexion TCP/IP au serveur `he-arc.ch`.
-Une fois la connexion établie, il envoie en texte ASCII les entêtes HTTP puis
-deux retours à la ligne (ce qui correspond à une ligne vide). La requête HTTP
-commencent toujours par la demande, ici `GET /index.php?page=equipe&id=25
-HTTP/1.1` puis les entêtes, ici: `Host: www.he-arc.ch`. La réponse du serveur
-est du même type, le code de réponse (`HTTP/1.1 200 OK`), les entêtes, une ligne
-vide puis le contenu.
-
-La demande et les entêtes sont en US-ASCII mais le corps peut être encodé
-autrement, ici c'est dit dans l'entête `Content-Type: text/html; charset=utf-8`.
-</div>
-
----
-
-### Setup
+### Préparatifs
 
 ```shell
 $ sudo systemctl start httpd
@@ -169,13 +134,47 @@ Les exemples suivant travaillent sur le code disponible dans le dépôt
 
 ---
 
-## PHP parle HTTP
+```console
 
-Voir [00-base/index.php](00-base/index.php)
+$ curl -v "http://he-arc.ch/?id=25"
+> GET /?id=25 HTTP/1.1
+> Host: he-arc.ch
+>
+< HTTP/1.1 200 OK
+< Content-Type: text/html; charset=utf-8
+<
+```
 
+```html
+<!DOCTYPE html>
+<title>He-Arc</title>
+<p>Hello
+```
 
 <div class="notes">
-Le fichier `index.php` est le code PHP le plus simple qui soit.
+HTTP est un protocole texte plutôt simple, jugez plutôt:
+
+Ce que nous voyons est une connexion TCP/IP au serveur `he-arc.ch`.
+Une fois la connexion établie, il envoie en texte ASCII les entêtes HTTP puis
+deux retours à la ligne (ce qui correspond à une ligne vide). La requête HTTP
+commencent toujours par la demande, ici `GET /index.php?page=equipe&id=25
+HTTP/1.1` puis les entêtes, ici: `Host: www.he-arc.ch`. La réponse du serveur
+est du même type, le code de réponse (`HTTP/1.1 200 OK`), les entêtes, une ligne
+vide puis le contenu.
+
+La demande et les entêtes sont en US-ASCII mais le corps peut être encodé
+autrement, ici c'est dit dans l'entête `Content-Type: text/html; charset=utf-8`.
+</div>
+
+---
+
+### Fait #1
+
+PHP parle HTTP.
+
+<div class="notes">
+Le fichier `index.php` est le code PHP le plus simple qui soit. Simple au sens
+du niveau de compréhension de PHP et d'une forme de complexité.
 
 ```php
 <?php // 00-base
@@ -190,22 +189,17 @@ $db = new PDO("sqlite:../users.db");
 // Page HTML
 ?>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset=utf-8>
-    <title>He-Arc</title>
-</head>
-<body>
-
+<meta charset=utf-8>
+<title>He-Arc</title>
 <?php
 // Contenu
-if ("equipe" === $page) {
+if ("equipe" === $page):
     $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id;");
     $query->execute(compact('id'));
 
     $personne = $query->fetch(PDO::FETCH_OBJ);
 ?>
-    <p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a></p>
+    <p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a>
     <h1>Équipe</h1>
     <h2>
         <?php echo $personne->prenom ?>
@@ -215,31 +209,30 @@ if ("equipe" === $page) {
         <img src="http://www.gravatar.com/avatar/<?php
             echo md5(strtolower($personne->email));
         ?>" alt="avatar">
-    </p>
 <?php
-} else {
+else:
 ?>
     <h1>Accueil</h1>
     <ul>
-        <li><a href="?page=equipe&amp;id=1">Yoan Blanc</a></li>
-        <li><a href="?page=equipe&amp;id=2">Yoan Blanc</a></li>
+        <li><a href="?page=equipe&amp;id=1">Yoan Blanc</a>
+        <li><a href="?page=equipe&amp;id=2">Yoan Blanc</a>
     </ul>
 <?php
-}
-?>
-</body>
-</html>
+endif
 ```
 
 </div>
 
 ---
 
-### PHP **est** un langage de template.
+### Fait #2
 
-Pour preuve, il faut ouvrir une balise `<?php` pour commencer la partie code.
+PHP **est** un langage de template.
+
 
 <div class="notes">
+Pour preuve, il faut ouvrir une balise `<?php` pour commencer la partie code.
+
 Avec la pratique, on a réalisé que de mélanger la logique métier et celle
 d'affichage n'était pas optimale car difficile à lire et maintenir.
 </div>
@@ -256,28 +249,30 @@ d'affichage n'était pas optimale car difficile à lire et maintenir.
 include "templates/entete.html";
 
 if ("equipe" === $_GET["page"]) {
+    // SELECT FROM u WHERE id=$_GET["id"]
     // ...
     include "templates/equipe.html";
 } else {
+    // ...
     include "templates/accueil.html";
 }
-
-include "templates/pieddepage.html";
 ```
 
 ---
 
-![](https://raw.githubusercontent.com/cyrilmanuel/picbot/e6ff24a8bfd7ee9f0514a4fd8f49b1255ef26178/picbot/Images/meme10.jpg)
+![](images/meme10.jpg)
 
 <div class="notes">
 Quel est le problème avec cette solution?
+
+([Source de l'image](https://raw.githubusercontent.com/cyrilmanuel/picbot/e6ff24a8bfd7ee9f0514a4fd8f49b1255ef26178/picbot/Images/meme10.jpg))
 </div>
 
 ---
 
 ### Sécurité des templates
 
-* _Principle of Least Privilege_
+* _Principle of Least Privilege_ ([POLA][7])
 * Intégration faite par un graphiste, société externe
 
 <div class="notes">
@@ -292,18 +287,16 @@ nos fichiers de template, car ils sont faits de PHP eux aussi.
 {%- extends "base.html" -%}
 
 {% block corps -%}
-<p><a href="?">retour</a></p>
+<p><a href="?">retour</a>
 <h1>Équipe</h1>
 <h2>
   {{- personne.prenom -}}
   {{ personne.nom -}}
 </h2>
-<p>
-<img
+<p><img
   src="http://www.gravatar.com/avatar/
   {{- personne.email | strtolower | md5 }}"
   alt="avatar">
-</p>
 {% endblock -%}
 ```
 
@@ -468,7 +461,7 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 <div class="notes">
 
 Apache le fait via
-[`mod_rewrite``](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) et
+[`mod_rewrite`](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) et
 Nginx [`try_files`](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files).
 
 </div>
@@ -539,13 +532,13 @@ ce paradigme-là.
 
 ## Composer
 
-Gestionnaire de paquets pour PHP. [getcomposer.org][4]
+Gestionnaire de paquets pour PHP: [getcomposer.org][4]
 
 <div class="notes">
-Maintenir notre répertoire de `vendor` ainsi que les `require` est peu pratique.
+Maintenir notre répertoire de _vendor_ ainsi que les `require` est peu pratique.
 Voici qu'entre en scène [Composer][4], le gestionnaire de
 paquet pour PHP. [Packagist](https://packagist.org/) est le dépôt en ligne de
-paquets.
+paquets public et utilisé par défaut.
 </div>
 
 ---
@@ -561,6 +554,14 @@ paquets.
     }
 }
 ```
+
+<div class="notes">
+Nos dépendances sont ainsi matérialisées dans le projet et peuvent être
+installée, ou mises à jour simplement.
+
+En principe les numéros de version respectent le
+[SemVer](http://semver.org/lang/fr/) (_Semantic Versioning_).
+</div>
 
 ---
 
@@ -726,5 +727,6 @@ Questions?
 [2]: https://www.w3.org/20/Overview.html
 [3]: http://www.redbeanphp.com/
 [4]: http://getcomposer.org/
-[5]: https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur
+[5]: https://fr.wikipedia.org/wiki/https://en.wikipedia.org/wiki/Principle_of_least_privilegeMod%C3%A8le-vue-contr%C3%B4leur
 [6]: https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names)
+[7]: https://en.wikipedia.org/wiki/Principle_of_least_privilege

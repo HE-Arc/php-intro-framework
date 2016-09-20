@@ -20,5 +20,3 @@ if ("equipe" === $page) {
 } else {
     include "templates/accueil.html";
 }
-
-include "templates/pieddepage.html";

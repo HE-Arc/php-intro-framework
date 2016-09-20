@@ -4,9 +4,9 @@
 <h1>Accueil</h1>
 <ul>
 {% for personne in personnes -%}
-  <li><a href="?page=equipe&amp;id={{ personne.id }}">
+  <li><a href="?page=equipe&id={{ personne.id }}">
     {{- personne.prenom }} {{ personne.nom -}}
-  </a></li>
+  </a>
 {% endfor -%}
 </ul>
 {% endblock -%}

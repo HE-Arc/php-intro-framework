@@ -11,40 +11,30 @@ $db = new PDO("sqlite:../users.db");
 // Page HTML
 ?>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset=utf-8>
-    <title>He-Arc</title>
-</head>
-<body>
-
+<meta charset=utf-8>
+<title>He-Arc</title>
 <?php
 // Contenu
-if ("equipe" === $page) {
+if ("equipe" === $page):
     $query = $db->query("SELECT * FROM `personnes` WHERE `id` = :id");
     $query->execute(compact('id'));
 
     $personne = $query->fetch(PDO::FETCH_OBJ);
 ?>
-    <p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a></p>
+    <p><a href="<?php echo $_SERVER["PHP_SELF"] ?>">retour</a>
     <h1>Équipe</h1>
     <h2>
         <?php echo $personne->prenom ?>
         <?php echo $personne->nom ?>
     </h2>
-    <p>
-        <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">
-    </p>
+    <p><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">
 <?php
-} else {
+else:
 ?>
     <h1>Accueil</h1>
     <ul>
-        <li><a href="?page=equipe&id=1">Yoan Blanc</a></li>
-        <li><a href="?page=equipe&id=2">Yoan Blanc</a></li>
+        <li><a href="?page=equipe&id=1">Yoan Blanc</a>
+        <li><a href="?page=equipe&id=2">Yoan Blanc</a>
     </ul>
 <?php
-}
-?>
-</body>
-</html>
+endif;
