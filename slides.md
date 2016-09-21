@@ -110,12 +110,15 @@ Berners-Lee et Vinton Cerf, résponsables du (World Wide) Web et de l'Internet.
 
 * **URI/URL**, des identifiants uniques
 * **HTML**, un langage de publication
-* **HTTP**, un protocole d'échange de texte (ou _hypertext_)
+* **HTTP**, un protocole d'échange de texte (ou _HyperText_)
 
 ---
 
 ### Préparatifs
 
+[https://github.com/HE-Arc/php-intro-framework/][8]
+
+<div class="notes">
 ```shell
 $ sudo systemctl start httpd
 $ cd /var/www/html
@@ -127,9 +130,8 @@ $ cd php-intro-framework
 $ open http://localhost/php-intro-framework
 ```
 
-<div class="notes">
 Les exemples suivant travaillent sur le code disponible dans le dépôt
-[HE-Arc/php-intro-framework](https://github.com/HE-Arc/php-intro-framework).
+[HE-Arc/php-intro-framework][8].
 </div>
 
 ---
@@ -730,3 +732,4 @@ Questions?
 [5]: https://fr.wikipedia.org/wiki/https://en.wikipedia.org/wiki/Principle_of_least_privilegeMod%C3%A8le-vue-contr%C3%B4leur
 [6]: https://docs.djangoproject.com/en/1.8/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names)
 [7]: https://en.wikipedia.org/wiki/Principle_of_least_privilege
+[8]: https://github.com/HE-Arc/php-intro-framework
