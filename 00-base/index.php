@@ -8,10 +8,11 @@ $id = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
 // Connexion à la page de donnée.
 $db = new PDO("sqlite:../users.db");
 
+// Entête HTTP
+header("Content-Type: text/html; charset=utf-8");
 // Page HTML
 ?>
 <!DOCTYPE html>
-<meta charset=utf-8>
 <title>He-Arc</title>
 <?php
 // Contenu

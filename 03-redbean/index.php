@@ -25,8 +25,12 @@ $titre = "He-Arc";
 // Contenu
 if ("equipe" === $page) {
     $personne = R::findOne("personnes", $id);
-    echo $twig->render("equipe.html", compact("titre", "personne"));
+    $body = $twig->render("equipe.html", compact("titre", "personne"));
 } else {
     $personnes = R::find("personnes");
-    echo $twig->render("accueil.html", compact("titre", "personnes"));
+    $body = $twig->render("accueil.html", compact("titre", "personnes"));
 }
+
+header("Content-Type: text/html; charset=utf-8");
+header("Content-Length: " . strlen($body));
+echo $body;

@@ -7,6 +7,7 @@ $id = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
 // Connexion à la page de donnée.
 $db = new PDO("sqlite:../users.db");
 
+header("Content-Type: text/html; charset=utf-8");
 include "templates/entete.html";
 
 // Contenu

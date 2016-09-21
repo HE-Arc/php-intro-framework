@@ -28,12 +28,16 @@ if ("equipe" === $page) {
 
     $personne = $query->fetch(PDO::FETCH_OBJ);
 
-    echo $twig->render("equipe.html", compact("titre", "personne"));
+    $body = $twig->render("equipe.html", compact("titre", "personne"));
 } else {
     $query = $db->query("SELECT * FROM `personnes`");
     $query->execute();
 
     $personnes = $query->fetchAll(PDO::FETCH_OBJ);
 
-    echo $twig->render("accueil.html", compact("titre", "personnes"));
+    $body = $twig->render("accueil.html", compact("titre", "personnes"));
 }
+
+header("Content-Type: text/html; charset=utf-8");
+header("Content-Length: " . strlen($body));
+echo $body;

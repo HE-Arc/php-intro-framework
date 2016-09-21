@@ -46,21 +46,25 @@ $uri = rawurldecode($uri);
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch($routeInfo[0]) {
 case Dispatcher::NOT_FOUND:
-    echo not_found();
+    $body = not_found();
     break;
 case Dispatcher::METHOD_NOT_ALLOWED:
-    echo not_allowed($routeInfo[1]);
+    $body = not_allowed($routeInfo[1]);
     break;
 case Dispatcher::FOUND:
     $handler = $routeInfo[1];
     $args = $routeInfo[2];
     try {
-        echo call_user_func_array($handler, $args);
+        $body = call_user_func_array($handler, $args);
     } catch (Exception $e){
-        echo server_error($e);
+        $body = server_error($e);
     }
     break;
 }
+
+header("Content-Type: text/html; charset=utf-8");
+header("Content-Length: " . strlen($body));
+echo $body;
 
 // les pages
 function equipe($slug) {

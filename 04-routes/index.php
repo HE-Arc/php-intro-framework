@@ -36,10 +36,14 @@ if (preg_match("#^/(?<page>[^/]+)/(?<slug>[^/]+)/?#", $uri, $matches)) {
 
 // Front controller
 if (function_exists($page)) {
-    echo call_user_func_array($page, $args);
+    $body = call_user_func_array($page, $args);
 } else {
-    echo not_found();
+    $body = not_found();
 }
+
+header("Content-Type: text/html; charset=utf-8");
+header("Content-Length: " . strlen($body));
+echo $body;
 
 // les pages
 function equipe($slug) {
