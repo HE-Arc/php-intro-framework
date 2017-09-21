@@ -16,7 +16,7 @@ $twig->addFilter(new Twig_SimpleFilter("strtolower", "strtolower"));
 $twig->addFilter(new Twig_SimpleFilter("md5", "md5"));
 
 // variables globales
-$titre = "He-Arc";
+$titre = "HE-Arc";
 $base = dirname($_SERVER["SCRIPT_NAME"]);
 
 // Lecture de l"URL

@@ -13,7 +13,7 @@ header("Content-Type: text/html; charset=utf-8");
 // Page HTML
 ?>
 <!DOCTYPE html>
-<title>He-Arc</title>
+<title>HE-Arc</title>
 <?php
 // Contenu
 if ("equipe" === $page):

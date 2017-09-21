@@ -20,7 +20,7 @@ $twig->addFilter(new Twig_SimpleFilter("strtolower", "strtolower"));
 $twig->addFilter(new Twig_SimpleFilter("md5", "md5"));
 
 // variable globale
-$titre = "He-Arc";
+$titre = "HE-Arc";
 
 // Contenu
 if ("equipe" === $page) {

@@ -27,7 +27,7 @@ $dispatcher = simpleDispatcher(function(RouteCollector $r) {
 });
 
 // variables globales
-$titre = "He-Arc";
+$titre = "HE-Arc";
 $base = dirname($_SERVER["SCRIPT_NAME"]);
 
 // verbe et requête HTTP
