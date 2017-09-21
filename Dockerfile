@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 MAINTAINER Yoan Blanc <yoan@dosimple.ch>
 
 RUN a2enmod rewrite
