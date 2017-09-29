@@ -8,7 +8,7 @@ Twig_Autoloader::register();
 $page = isset($_GET["page"]) ? $_GET["page"] : null;
 $id = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
 
-// Connexion à la page de donnée.
+// Connexion à la base de données.
 R::setup("sqlite:../users.db");
 
 // Configuration de Twig

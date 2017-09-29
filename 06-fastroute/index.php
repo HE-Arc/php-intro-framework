@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 use RedBeanPHP\Facade as R;
 
 
-// Connexion à la page de donnée.
+// Connexion à la base de données.
 R::setup("sqlite:" . __DIR__ . "/../users.db");
 
 // Configuration de Twig

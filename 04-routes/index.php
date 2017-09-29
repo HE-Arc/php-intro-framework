@@ -5,7 +5,7 @@ require_once "../vendor/Twig/lib/Twig/Autoloader.php";
 
 Twig_Autoloader::register();
 
-// Connexion à la page de donnée.
+// Connexion à la base de données.
 R::setup("sqlite:../users.db");
 
 // Configuration de Twig
