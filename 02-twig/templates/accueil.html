@@ -4,7 +4,7 @@
 <h1>Accueil</h1>
 <ul>
 {% for personne in personnes -%}
-  <li><a href="?page=equipe&id={{ personne.id }}">Yoan Blanc</a>
+  <li><a href="?page=equipe&amp;id={{ personne.id }}">Yoan Blanc</a>
 {% endfor -%}
 </ul>
 {% endblock -%}

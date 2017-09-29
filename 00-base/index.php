@@ -34,8 +34,8 @@ else:
 ?>
     <h1>Accueil</h1>
     <ul>
-        <li><a href="?page=equipe&id=1">Yoan Blanc</a>
-        <li><a href="?page=equipe&id=2">Yoan Blanc</a>
+        <li><a href="?page=equipe&amp;id=1">Yoan Blanc</a>
+        <li><a href="?page=equipe&amp;id=2">Yoan Blanc</a>
     </ul>
 <?php
 endif;
