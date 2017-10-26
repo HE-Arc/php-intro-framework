@@ -28,7 +28,7 @@ if ("equipe" === $page):
         <?php echo $personne->prenom ?>
         <?php echo $personne->nom ?>
     </h2>
-    <p><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">
+    <p><img src="//www.gravatar.com/avatar/<?php echo md5(strtolower($personne->email)) ?>" alt="avatar">
 <?php
 else:
 ?>

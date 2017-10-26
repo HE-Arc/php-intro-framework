@@ -6,5 +6,5 @@
 <h2>
   {{- personne.prenom }} {{ personne.nom -}}
 </h2>
-<p><img src="http://www.gravatar.com/avatar/{{ personne.email | strtolower | md5 }} ?>" alt="avatar">
+<p><img src="//www.gravatar.com/avatar/{{ personne.email | strtolower | md5 }} ?>" alt="avatar">
 {% endblock -%}
